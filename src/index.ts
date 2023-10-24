@@ -3,16 +3,7 @@ console.log(`plugin ${$.ID}@${$.VERSION} is loading`)
 
 const timers = new Map()
 
-interface PlayerInfo {
-	name: string
-	id: string
-}
-
-$.on('serve', (event: Event<{
-	player?: PlayerInfo
-	client: Conn
-	server: Conn
-}>) => {
+$.on('serve', (event: ServeEvent) => {
 	const { player, client, server } = event
 	if(!player){ // if it's a ping
 		return
@@ -26,7 +17,7 @@ $.on('serve', (event: Event<{
 
 	var lastXYZ: { x: number, y: number, z: number } | null = null
 
-	client.on('close', (event) => {
+	client.on('close', (event: CloseEvent) => {
 		console.log('client conn closed')
 		if(timerId){
 			clearInterval(timerId)
@@ -34,7 +25,7 @@ $.on('serve', (event: Event<{
 			timerId = null
 		}
 	})
-	server.on('close', (event) => {
+	server.on('close', (event: CloseEvent) => {
 		console.log('server conn closed')
 		if(timerId){
 			clearInterval(timerId)
