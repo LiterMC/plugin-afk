@@ -1,0 +1,21 @@
+{
+  "name": "afk",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "tsc --noEmit",
+    "export-meta": "node cmd/export-meta",
+    "zip": "npm-build-zip --destination=dist",
+    "build": "npm run export-meta && npm run build:types && npm run build:ts && npm run zip",
+    "build:ts": "tsc",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:watch": "npm run build -- --watch"
+  },
+  "author": "zyxkad",
+  "license": "GPL-3.0",
+  "description": "A plugin can let you automatic jump",
+  "devDependencies": {
+    "go-liter-plugin": "^1.0.1",
+    "npm-build-zip": "^1.0.4"
+  }
+}
